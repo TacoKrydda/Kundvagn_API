@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Kundvagn_API.Models
 {
@@ -9,6 +10,7 @@ namespace Kundvagn_API.Models
         public double Price { get; set; }
         public int BrandId { get; set; }
         [ForeignKey("BrandId")]
+        [JsonIgnore]
         public Brand? Brand { get; set; }
     }
 }

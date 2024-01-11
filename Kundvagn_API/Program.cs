@@ -1,3 +1,4 @@
+using Kundvagn_API;
 using Kundvagn_API.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,7 @@ builder.Services.AddDbContext<KundvagnContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 }, ServiceLifetime.Scoped);
+builder.Services.AddScoped<ICart, Cart>();
 
 builder.Services.AddCors(options =>
 {
