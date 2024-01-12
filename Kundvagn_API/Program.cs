@@ -1,5 +1,7 @@
 using Kundvagn_API;
 using Kundvagn_API.Context;
+using Kundvagn_API.Interfaces;
+using Kundvagn_API.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,8 @@ builder.Services.AddDbContext<KundvagnContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 }, ServiceLifetime.Scoped);
+builder.Services.AddScoped<IBrandService, BrandService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICart, Cart>();
 
 builder.Services.AddCors(options =>

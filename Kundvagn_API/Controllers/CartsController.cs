@@ -6,11 +6,11 @@ namespace Kundvagn_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CartController : ControllerBase
+    public class CartsController : ControllerBase
     {
         private readonly ICart _cart;
 
-        public CartController(ICart cart)
+        public CartsController(ICart cart)
         {
             _cart = cart;
         }
