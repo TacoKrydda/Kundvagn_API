@@ -1,6 +1,7 @@
 ﻿using Kundvagn_API.Models;
+using Kundvagn_API.Utilities;
 
-namespace Kundvagn_API
+namespace Kundvagn_API.Interfaces
 {
     public interface ICart
     {

@@ -1,6 +1,6 @@
 ﻿using Kundvagn_API.Models;
 
-namespace Kundvagn_API
+namespace Kundvagn_API.Utilities
 {
     public class CartItem
     {

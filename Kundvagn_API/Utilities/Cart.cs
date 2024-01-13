@@ -1,18 +1,38 @@
-﻿using Kundvagn_API.Models;
+﻿using Kundvagn_API.Interfaces;
+using Kundvagn_API.Models;
+using System.Text;
+using System.Text.Json;
 
-namespace Kundvagn_API
+namespace Kundvagn_API.Utilities
 {
     public class Cart : ICart
     {
-        public List<CartItem> CartItems { get; }
-
-        public Cart()
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public List<CartItem> CartItems
         {
-            CartItems = new List<CartItem>();
+            get
+            {
+                var session = _httpContextAccessor.HttpContext.Session;
+                if (session.TryGetValue("CartItems", out var cartItems))
+                {
+                    return JsonSerializer.Deserialize<List<CartItem>>(cartItems);
+                }
+                return new List<CartItem>();
+            }
+            set
+            {
+                var session = _httpContextAccessor.HttpContext.Session;
+                session.Set("CartItems", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value)));
+            }
+        }
+        public Cart(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public List<CartItem> AddToCart(Product product, int quantity)
         {
+            Console.WriteLine($"AddToCart called with {product.ProductName} and quantity {quantity}.");
             CartItem existingItem = CartItems.Find(item => item.Product == product);
 
             if (existingItem != null)
@@ -25,7 +45,6 @@ namespace Kundvagn_API
                 CartItems.Add(newItem);
             }
 
-            // Returnera den uppdaterade listan med varukorgsobjekt
             return CartItems;
         }
 

@@ -1,4 +1,5 @@
-﻿using Kundvagn_API.Models;
+﻿using Kundvagn_API.Interfaces;
+using Kundvagn_API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

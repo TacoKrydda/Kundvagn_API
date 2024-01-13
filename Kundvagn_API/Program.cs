@@ -1,7 +1,7 @@
-using Kundvagn_API;
 using Kundvagn_API.Context;
 using Kundvagn_API.Interfaces;
 using Kundvagn_API.Services;
+using Kundvagn_API.Utilities;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +19,9 @@ builder.Services.AddDbContext<KundvagnContext>(options =>
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICart, Cart>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
 
 builder.Services.AddCors(options =>
 {
@@ -43,6 +46,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseSession();
+
 
 app.MapControllers();
 app.UseCors("AllowAllOrigins");
