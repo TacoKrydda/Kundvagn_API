@@ -1,5 +1,6 @@
 ﻿using Kundvagn_API.Interfaces;
 using Kundvagn_API.Models;
+using Kundvagn_API.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,9 +18,9 @@ namespace Kundvagn_API.Controllers
         }
 
         [HttpPost("addCart")]
-        public IActionResult AddCart(Product product, int Quantity)
+        public IActionResult AddCart(AddCartRequest request)
         {
-            var result = _cart.AddToCart(product, Quantity);
+            var result = _cart.AddToCart(request.Product, request.Quantity, request.Items);
             return Ok(result);
         }
 

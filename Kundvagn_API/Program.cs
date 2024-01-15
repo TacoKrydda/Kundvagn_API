@@ -19,9 +19,9 @@ builder.Services.AddDbContext<KundvagnContext>(options =>
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICart, Cart>();
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession();
+//builder.Services.AddHttpContextAccessor();
+//builder.Services.AddDistributedMemoryCache();
+//builder.Services.AddSession();
 
 builder.Services.AddCors(options =>
 {
@@ -46,7 +46,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-app.UseSession();
+//app.UseSession();
 
 
 app.MapControllers();
