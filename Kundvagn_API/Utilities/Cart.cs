@@ -93,30 +93,30 @@ namespace Kundvagn_API.Utilities
 
         public List<CartItem> AddToCart(Product product, int quantity, List<CartItem> items)
         {
-            CartItem existingItem = CartItems.Find(item => item.Product == product);
+            CartItem existingItem = items.Find(item => item.Product.ProductId == product.ProductId);
 
             if (existingItem != null)
             {
                 // Skapa en ny lista och kopiera alla element från den befintliga listan
-                List<CartItem> updatedCartItems = new List<CartItem>(CartItems);
+                List<CartItem> updatedCartItems = new List<CartItem>(items);
 
                 // Hitta det aktuella objektet i den kopierade listan
-                CartItem updatedItem = updatedCartItems.Find(item => item.Product == product);
+                CartItem updatedItem = updatedCartItems.Find(item => item.Product.ProductId == product.ProductId);
 
                 // Uppdatera antalet i det kopierade objektet
                 updatedItem.Quantity += quantity;
 
                 // Tilldela den nya listan till CartItems
-                CartItems = updatedCartItems;
+                items = updatedCartItems;
             }
             else
             {
                 CartItem newItem = new CartItem(product, quantity);
-                CartItems.Add(newItem);
+                items.Add(newItem);
             }
 
             // Returnera den uppdaterade listan med varukorgsobjekt
-            return CartItems;
+            return items;
         }
 
         public List<CartItem> RemoveFromCart(Product product, int quantity)
