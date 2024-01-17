@@ -84,12 +84,12 @@ namespace Kundvagn_API.Utilities
 {
     public class Cart : ICart
     {
-        public List<CartItem> CartItems { get; set; }
+        //public List<CartItem> CartItems { get; set; }
 
-        public Cart()
-        {
-            CartItems = new List<CartItem>();
-        }
+        //public Cart()
+        //{
+        //    CartItems = new List<CartItem>();
+        //}
 
         public List<CartItem> AddToCart(Product product, int quantity, List<CartItem> items)
         {
@@ -119,31 +119,41 @@ namespace Kundvagn_API.Utilities
             return items;
         }
 
-        public List<CartItem> RemoveFromCart(Product product, int quantity)
+        public List<CartItem> RemoveFromCart(Product product, int quantity, List<CartItem> items)
         {
-            CartItem existingItem = CartItems.Find(item => item.Product == product);
+            CartItem existingItem = items.Find(item => item.Product.ProductId == product.ProductId);
 
             if (existingItem != null)
             {
+                // Skapa en ny lista och kopiera alla element från den befintliga listan
+                List<CartItem> updatedCartItems = new List<CartItem>(items);
+
                 if (quantity >= existingItem.Quantity)
                 {
-                    CartItems.Remove(existingItem);
+                    // Ta bort hela objektet från den kopierade listan om kvantiteten är tillräckligt stor
+                    updatedCartItems.Remove(existingItem);
                 }
                 else if (quantity > 0)
                 {
-                    existingItem.Quantity -= quantity;
+                    // Uppdatera kvantiteten i det kopierade objektet
+                    CartItem updatedItem = updatedCartItems.Find(item => item.Product.ProductId == product.ProductId);
+                    updatedItem.Quantity -= quantity;
                 }
                 // If the quantity is less than or equal to 0, do nothing (invalid input).
+
+                // Tilldela den nya listan till CartItems
+                items = updatedCartItems;
             }
 
             // Returnera den uppdaterade listan med varukorgsobjekt
-            return CartItems;
+            return items;
         }
 
 
-        public double CalculateTotalPrice()
+
+        public double CalculateTotalPrice(List<CartItem> items)
         {
-            return CartItems.Sum(item => item.Quantity * item.Product.Price);
+            return items.Sum(item => item.Quantity * item.Product.Price);
         }
     }
 }

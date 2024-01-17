@@ -2,7 +2,7 @@
 
 namespace Kundvagn_API.Utilities
 {
-    public class AddCartRequest
+    public class CartRequest
     {
         public Product? Product { get; set; }
         public int Quantity { get; set; }
