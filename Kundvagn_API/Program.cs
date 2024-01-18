@@ -18,6 +18,7 @@ builder.Services.AddDbContext<KundvagnContext>(options =>
 }, ServiceLifetime.Scoped);
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<ICart, Cart>();
 //builder.Services.AddHttpContextAccessor();
 //builder.Services.AddDistributedMemoryCache();

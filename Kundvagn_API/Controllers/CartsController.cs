@@ -20,23 +20,30 @@ namespace Kundvagn_API.Controllers
         [HttpPost("addCart")]
         public IActionResult AddCart(CartRequest request)
         {
-            var result = _cart.AddToCart(request.Product, request.Quantity, request.Items);
+            var result = _cart.PostCart(request);
+            return Ok(result);
+        }
+
+        [HttpPut("updateCartQuantity")]
+        public IActionResult UpdateCart(CartRequest request) 
+        {
+            var result = _cart.UpdateCart(request);
             return Ok(result);
         }
 
         [HttpDelete("removeFromCart")]
         public IActionResult RemoveFromCart(CartRequest request)
         {
-            var result = _cart.RemoveFromCart(request.Product, request.Quantity, request.Items);
+            var result = _cart.RemoveCart(request);
             return Ok(result);
 
         }
 
 
-        [HttpGet("totalPriceCart")]
+        [HttpPost("totalPriceCart")]
         public IActionResult GetCartTotal(CartRequest request)
         {
-            var result = _cart.CalculateTotalPrice(request.Items);
+            var result = _cart.GetCartTotal(request);
             return Ok(result);
         }
     }

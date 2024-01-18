@@ -7,8 +7,9 @@ namespace Kundvagn_API.Interfaces
     {
         //List<CartItem> CartItems { get; set; }
 
-        List<CartItem> AddToCart(Product product, int quantity, List<CartItem> items);
-        double CalculateTotalPrice(List<CartItem> items);
-        List<CartItem> RemoveFromCart(Product product, int quantity, List<CartItem> items);
+        List<CartItem> PostCart(CartRequest request);
+        List<CartItem> UpdateCart(CartRequest request);
+        List<CartItem> RemoveCart(CartRequest request);
+        double GetCartTotal(CartRequest request);
     }
 }
