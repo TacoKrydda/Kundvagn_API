@@ -8,6 +8,6 @@ namespace Kundvagn_API.Models
     {
         public int OrderId { get; set; }
         [NotMapped]
-        public List<Cart>? Items  { get; set; }
+        public List<CartItem>? Items  { get; set; }
     }
 }
